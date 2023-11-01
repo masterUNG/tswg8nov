@@ -74,7 +74,7 @@ class AppService {
             Divider(),
             Divider(),
             WidgetText(
-              data: 'หมายเหตุ',
+              data: 'หมายเหตุ : ',
               textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
             ),
             Divider(),
