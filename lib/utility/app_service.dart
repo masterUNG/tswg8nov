@@ -43,13 +43,13 @@ class AppService {
                   shrinkWrap: true,
                   itemCount: appController.availableBluetoothDevices.length,
                   itemBuilder: (context, index) => WidgetButton(
-                    label:
-                        appController.availableBluetoothDevices[index].toString(),
+                    label: appController.availableBluetoothDevices[index]
+                        .toString(),
                     pressFunc: () {
                       AppService()
                           .processChoosePrinter(
-                              printerName:
-                                  appController.availableBluetoothDevices[index])
+                              printerName: appController
+                                  .availableBluetoothDevices[index])
                           .then((value) => Get.back());
                     },
                   ),
@@ -80,7 +80,7 @@ class AppService {
           mainAxisSize: MainAxisSize.min,
           children: [
             const ImageIcon(
-              AssetImage('images/dfend.png'),
+              AssetImage('images/logo_tswg.png'),
               size: 96,
             ),
             WidgetText(
@@ -103,19 +103,42 @@ class AppService {
               data: 'เวลาเข้า : ${guestModel.checkIn}',
               textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
             ),
-            Divider(),
-            Divider(),
+            const Divider(),
+            const Divider(),
             WidgetText(
-              data: 'หมายเหตุ : ',
+              data: 'หมายเหตุ : ${guestModel.remark}',
               textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
             ),
-            Divider(),
-            Divider(),
-            Divider(),
-            Divider(
+            const Divider(),
+
+            WidgetText(
+              data: 'การเก็บรวบรวม ใช้หรือ เปิดเผยข้อมูล',
+              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+            ),
+            WidgetText(
+              data: 'ส่วนบุคลของท่าน เพื่อใช้ในการ',
+              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+            ),
+            WidgetText(
+              data: 'รักษาความปลอดภัยนิติบุคล',
+              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+            ),
+            WidgetText(
+              data: 'หมู่บ้านจัดสรร มาย์ด ฮอฟฟ์ สุวรรณภูมิ',
+              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+            ),
+            WidgetText(
+              data: 'และลูกบ้านของโครงการ หมู่บ้านเท่านั้น',
+              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+            ),
+
+            const Divider(),
+            const Divider(),
+            const Divider(),
+            const Divider(
               color: Colors.black,
             ),
-            Divider(),
+            const Divider(),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 16),
               width: 120,

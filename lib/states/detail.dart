@@ -60,7 +60,7 @@ class _DetailState extends State<Detail> {
                   Column(
                     children: [
                       const WidgetImage(
-                        pathImage: 'images/dfend.png',
+                        pathImage: 'images/logo_tswg.png',
                         width: 250,
                       ),
                       const WidgetText(data: 'รายละเอียดข้อมูลการติดต่อ'),
@@ -96,7 +96,7 @@ class _DetailState extends State<Detail> {
             ),
             floatingActionButton: appController.connectedPrinter.value
                 ? WidgetButton(
-                    label: 'Print',
+                    label: 'พิมพ์',
                     pressFunc: () {
                       print('print');
 

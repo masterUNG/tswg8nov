@@ -39,7 +39,7 @@ class _ListGuestState extends State<ListGuest> {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: const WidgetText(data: 'List Guest'),
+              title: const WidgetText(data: 'รายการทั้งหมด'),
               centerTitle: true,
               actions: [
                 WidgetIconButton(
@@ -51,7 +51,7 @@ class _ListGuestState extends State<ListGuest> {
               ],
             ),
             floatingActionButton: WidgetButton(
-              label: 'Add Guest',
+              label: 'เพิ่มรายการ',
               pressFunc: () {
                 Get.to(const AddGuest())!.then((value) {
                   AppService().readAllGuest();
