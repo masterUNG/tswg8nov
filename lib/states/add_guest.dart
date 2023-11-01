@@ -32,7 +32,12 @@ class _AddGuestState extends State<AddGuest> {
 
     if (controller.cardFiles.isNotEmpty) {
       controller.cardFiles.clear();
-      
+    }
+    if (controller.avatarFiles.isNotEmpty) {
+      controller.avatarFiles.clear();
+    }
+    if (controller.carFiles.isNotEmpty) {
+      controller.carFiles.clear();
     }
   }
 
@@ -59,31 +64,12 @@ class _AddGuestState extends State<AddGuest> {
             print('avatarFiles --> ${appController.avatarFiles.length}');
             return ListView(
               children: [
-                // imageAvatar(appController),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // imageCar(appController),
-                    // const SizedBox(
-                    //   width: 16,
-                    // ),
-                    appController.cardFiles.isEmpty
-                        ? WidgetImage(
-                            pathImage: 'images/card.png',
-                            width: 200,
-                            height: 200,
-                            tapFunc: () async {
-                              await AppService()
-                                  .processTakePhoto()
-                                  .then((value) {
-                                appController.cardFiles.add(value);
-                              });
-                            },
-                          )
-                        : WidgetImageFile(
-                            file: appController.cardFiles.last,
-                            size: 200,
-                          ),
+                    imageAvatar(appController),
+                    imageCar(appController),
+                    imageCard(appController),
                   ],
                 ),
                 Row(
@@ -222,42 +208,66 @@ class _AddGuestState extends State<AddGuest> {
     );
   }
 
+  StatelessWidget imageCard(AppController appController) {
+    return appController.cardFiles.isEmpty
+        ? Container(decoration: AppConstant().borderBox(),
+          child: WidgetImage(
+              pathImage: 'images/id_card.png',
+              width: 80,
+              height: 80,
+              tapFunc: () async {
+                await AppService().processTakePhoto().then((value) {
+                  appController.cardFiles.add(value);
+                });
+              },
+            ),
+        )
+        : WidgetImageFile(
+            file: appController.cardFiles.last,
+            size: 80,
+          );
+  }
+
   StatelessWidget imageCar(AppController appController) {
     return appController.carFiles.isEmpty
-        ? WidgetImage(
-            pathImage: 'images/car.png',
-            width: 100,
-            height: 100,
-            tapFunc: () async {
-              await AppService().processTakePhoto().then((value) {
-                appController.carFiles.add(value);
-              });
-            },
-          )
+        ? Container(decoration: AppConstant().borderBox(),
+          child: WidgetImage(
+              pathImage: 'images/id_car.png',
+              width: 80,
+              height: 80,
+              tapFunc: () async {
+                await AppService().processTakePhoto().then((value) {
+                  appController.carFiles.add(value);
+                });
+              },
+            ),
+        )
         : WidgetImageFile(
             file: appController.carFiles.last,
-            size: 100,
+            size: 80,
           );
   }
 
   Widget imageAvatar(AppController appController) {
     return appController.avatarFiles.isEmpty
-        ? WidgetImage(
-            pathImage: 'images/avatar.png',
-            width: 200,
-            height: 200,
-            tapFunc: () async {
-              await AppService().processTakePhoto().then((value) {
-                appController.avatarFiles.add(value);
-              });
-            },
-          )
+        ? Container(decoration: AppConstant().borderBox(),
+          child: WidgetImage(
+              pathImage: 'images/avatar1.png',
+              width: 80,
+              height: 80,
+              tapFunc: () async {
+                await AppService().processTakePhoto().then((value) {
+                  appController.avatarFiles.add(value);
+                });
+              },
+            ),
+        )
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               WidgetImageFile(
                 file: appController.avatarFiles.last,
-                size: 200,
+                size: 80,
               ),
             ],
           );
