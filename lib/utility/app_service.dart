@@ -11,7 +11,9 @@ import 'package:checkofficer/models/objective_model.dart';
 import 'package:checkofficer/models/province_model.dart';
 import 'package:checkofficer/utility/app_constant.dart';
 import 'package:checkofficer/utility/app_controller.dart';
+import 'package:checkofficer/utility/app_dialog.dart';
 import 'package:checkofficer/utility/app_snackbar.dart';
+import 'package:checkofficer/widgets/widget_button.dart';
 import 'package:checkofficer/widgets/widget_text.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
@@ -26,6 +28,36 @@ import 'package:screenshot/screenshot.dart';
 
 class AppService {
   AppController appController = Get.put(AppController());
+
+  void dialogCallConnectedPrinter({required BuildContext context}) {
+    if (!appController.connectedPrinter.value) {
+      AppDialog(context: context).normalDialog(
+        title: 'Connected Printer',
+        contentWidget: appController.availableBluetoothDevices.isEmpty
+            ? const WidgetText(data: 'ไม่มี Printer')
+            : SizedBox(
+                height: 100,
+                width: 250,
+                child: ListView.builder(
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: appController.availableBluetoothDevices.length,
+                  itemBuilder: (context, index) => WidgetButton(
+                    label:
+                        appController.availableBluetoothDevices[index].toString(),
+                    pressFunc: () {
+                      AppService()
+                          .processChoosePrinter(
+                              printerName:
+                                  appController.availableBluetoothDevices[index])
+                          .then((value) => Get.back());
+                    },
+                  ),
+                ),
+              ),
+      );
+    }
+  }
 
   Future<void> processPrint(
       {required String name, required String phone}) async {
