@@ -2,7 +2,7 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class GuestModel {
-  final String id;
+  final String? id;
   final String nameAndSur;
   final String phone;
   final String carId;
@@ -15,9 +15,8 @@ class GuestModel {
   final String checkOut;
   final String remark;
 
-
   GuestModel({
-    required this.id,
+    this.id,
     required this.nameAndSur,
     required this.phone,
     required this.carId,
@@ -30,7 +29,6 @@ class GuestModel {
     required this.checkOut,
     required this.remark,
   });
-
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -68,5 +66,6 @@ class GuestModel {
 
   String toJson() => json.encode(toMap());
 
-  factory GuestModel.fromJson(String source) => GuestModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory GuestModel.fromJson(String source) =>
+      GuestModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

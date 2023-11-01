@@ -135,7 +135,7 @@ class AppService {
       final myImage = image.decodeImage(value);
       bytes += generator.image(myImage!);
 
-      bytes += generator.qrcode(guestModel.id);
+      bytes += generator.qrcode(guestModel.id!);
 
       bytes += generator.text('\n\n\n\n\n');
 

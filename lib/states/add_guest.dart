@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, sort_child_properties_last
 
+import 'package:checkofficer/models/guest_model.dart';
 import 'package:checkofficer/utility/app_constant.dart';
 import 'package:checkofficer/utility/app_controller.dart';
 import 'package:checkofficer/utility/app_service.dart';
@@ -27,6 +28,14 @@ class _AddGuestState extends State<AddGuest> {
   @override
   void initState() {
     super.initState();
+
+    Future.delayed(
+      Duration.zero,
+      () {
+        AppService().dialogCallConnectedPrinter(context: context);
+      },
+    );
+
     AppService().readAllProvince();
     AppService().readAllObjective();
 
@@ -46,167 +55,181 @@ class _AddGuestState extends State<AddGuest> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const WidgetText(data: 'Add Guest'),
-        centerTitle: true,
-        actions: [
-          WidgetIconButton(
-            iconData: Icons.save,
-            pressFunc: () {
-              processSave();
-            },
-            color: Theme.of(context).primaryColor,
-          )
-        ],
-      ),
-      body: GetX(
-          init: AppController(),
-          builder: (AppController appController) {
-            print('avatarFiles --> ${appController.avatarFiles.length}');
-            return ListView(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    imageAvatar(appController),
-                    imageCar(appController),
-                    imageCard(appController),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    WidgetForm(
-                      changeFunc: (p0) {
-                        nameAndSurname = p0.trim();
-                      },
-                      labelWidget: const WidgetText(data: 'ชื่อ นามสกุล'),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    WidgetForm(
-                      changeFunc: (p0) {
-                        phone = p0.trim();
-                      },
-                      labelWidget: const WidgetText(data: 'เบอร์โทรศัพย์'),
-                      textInputType: TextInputType.phone,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    WidgetForm(
-                      changeFunc: (p0) {
-                        carId = p0.trim();
-                      },
-                      labelWidget: const WidgetText(data: 'ทะเบียนรถ'),
-                    ),
-                  ],
-                ),
-                appController.provinceModels.isEmpty
-                    ? const SizedBox()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            margin: const EdgeInsets.only(top: 16),
-                            decoration: AppConstant().borderBox(),
-                            width: 250,
-                            child: DropdownButton(
-                              underline: const SizedBox(),
-                              isExpanded: true,
-                              items: appController.provinceModels
-                                  .map(
-                                    (element) => DropdownMenuItem(
-                                      child: WidgetText(data: element.name_th),
-                                      value: element.name_th,
-                                    ),
-                                  )
-                                  .toList(),
-                              value: appController.chooseProvinces.last,
-                              hint: const WidgetText(data: 'โปรดเลือกจังหวัด'),
-                              onChanged: (value) {
-                                appController.chooseProvinces.add(value);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                appController.objectiveModels.isEmpty
-                    ? const SizedBox()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            margin: const EdgeInsets.only(top: 16),
-                            decoration: AppConstant().borderBox(),
-                            width: 250,
-                            child: DropdownButton(
-                              isExpanded: true,
-                              underline: const SizedBox(),
-                              items: appController.objectiveModels
-                                  .map(
-                                    (element) => DropdownMenuItem(
-                                      child:
-                                          WidgetText(data: element.objective),
-                                      value: element.objective,
-                                    ),
-                                  )
-                                  .toList(),
-                              value: appController.chooseObjectives.last,
-                              hint: const WidgetText(
-                                  data: 'โปรดเลือกจุดประส่งค์'),
-                              onChanged: (value) {
-                                appController.chooseObjectives.add(value);
-
-                                // if (value.toString() == 'อื่นๆ') {
-                                //   appController.displayOther.value = true;
-                                // } else {
-                                //   appController.displayOther.value = false;
-                                // }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    WidgetForm(
-                      changeFunc: (p0) {
-                        remark = p0.trim();
-                      },
-                      labelWidget: const WidgetText(data: 'หมายเหตุ'),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 250,
-                      margin: const EdgeInsets.only(top: 16, bottom: 32),
-                      child: WidgetButton(
-                        label: 'บันทึก และ พิมพ์',
-                        pressFunc: () {
-                          processSave();
+    return Obx(() {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const WidgetText(data: 'Add Guest'),
+          centerTitle: true,
+          actions: [
+            WidgetIconButton(
+              iconData: Icons.print,
+              color:
+                  controller.connectedPrinter.value ? Colors.green : Colors.red,
+              pressFunc: () {
+                AppService().dialogCallConnectedPrinter(context: context);
+              },
+            ),
+            WidgetIconButton(
+              iconData: Icons.save,
+              pressFunc: () {
+                processSave();
+              },
+              color: Theme.of(context).primaryColor,
+            )
+          ],
+        ),
+        body: GetX(
+            init: AppController(),
+            builder: (AppController appController) {
+              print('avatarFiles --> ${appController.avatarFiles.length}');
+              return ListView(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      imageAvatar(appController),
+                      imageCar(appController),
+                      imageCard(appController),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WidgetForm(
+                        changeFunc: (p0) {
+                          nameAndSurname = p0.trim();
                         },
+                        labelWidget: const WidgetText(data: 'ชื่อ นามสกุล'),
                       ),
-                    ),
-                  ],
-                )
-              ],
-            );
-          }),
-    );
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WidgetForm(
+                        changeFunc: (p0) {
+                          phone = p0.trim();
+                        },
+                        labelWidget: const WidgetText(data: 'เบอร์โทรศัพย์'),
+                        textInputType: TextInputType.phone,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WidgetForm(
+                        changeFunc: (p0) {
+                          carId = p0.trim();
+                        },
+                        labelWidget: const WidgetText(data: 'ทะเบียนรถ'),
+                      ),
+                    ],
+                  ),
+                  appController.provinceModels.isEmpty
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.only(top: 16),
+                              decoration: AppConstant().borderBox(),
+                              width: 250,
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                isExpanded: true,
+                                items: appController.provinceModels
+                                    .map(
+                                      (element) => DropdownMenuItem(
+                                        child:
+                                            WidgetText(data: element.name_th),
+                                        value: element.name_th,
+                                      ),
+                                    )
+                                    .toList(),
+                                value: appController.chooseProvinces.last,
+                                hint:
+                                    const WidgetText(data: 'โปรดเลือกจังหวัด'),
+                                onChanged: (value) {
+                                  appController.chooseProvinces.add(value);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                  appController.objectiveModels.isEmpty
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.only(top: 16),
+                              decoration: AppConstant().borderBox(),
+                              width: 250,
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: const SizedBox(),
+                                items: appController.objectiveModels
+                                    .map(
+                                      (element) => DropdownMenuItem(
+                                        child:
+                                            WidgetText(data: element.objective),
+                                        value: element.objective,
+                                      ),
+                                    )
+                                    .toList(),
+                                value: appController.chooseObjectives.last,
+                                hint: const WidgetText(
+                                    data: 'โปรดเลือกจุดประส่งค์'),
+                                onChanged: (value) {
+                                  appController.chooseObjectives.add(value);
+
+                                  // if (value.toString() == 'อื่นๆ') {
+                                  //   appController.displayOther.value = true;
+                                  // } else {
+                                  //   appController.displayOther.value = false;
+                                  // }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WidgetForm(
+                        changeFunc: (p0) {
+                          remark = p0.trim();
+                        },
+                        labelWidget: const WidgetText(data: 'หมายเหตุ'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 250,
+                        margin: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: WidgetButton(
+                          label: 'บันทึก และ พิมพ์',
+                          pressFunc: () {
+                            processSave();
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              );
+            }),
+      );
+    });
   }
 
   StatelessWidget imageCard(AppController appController) {
@@ -282,7 +305,8 @@ class _AddGuestState extends State<AddGuest> {
       AppSnackBar(title: 'ไม่มีภาพ ?', message: 'กรุณาถ่ายภาพ').errorSnackBar();
     } else {
       //process Insert
-      AppService().processAddGuest(
+      AppService()
+          .processAddGuest(
         nameAndSurname: nameAndSurname ?? '',
         phone: phone ?? '',
         carId: carId ?? '',
@@ -293,7 +317,30 @@ class _AddGuestState extends State<AddGuest> {
             ? ''
             : controller.chooseObjectives.last!,
         remark: remark ?? '',
-      );
+      )
+          .then((value) {
+        if (controller.connectedPrinter.value) {
+          // GuestModel guestModel = GuestModel(
+
+          //     nameAndSur: nameAndSurname ?? '',
+          //     phone: phone ?? '',
+          //     carId: carId ?? '',
+          //     province: controller.chooseProvinces.last == null ? '' : controller.chooseProvinces.last! ,
+          //     objective: controller.chooseObjectives.last == null ? '' : controller.chooseObjectives.last! ,
+          //     urlImage1: '',
+          //     urlImage2: '',
+          //     urlImage3: '',
+          //     checkIn: DateTime.now().toString(),
+          //     checkOut: '',
+          //     remark: remark!);
+
+          AppService().readAllGuest().then((value) {
+            AppService().processPrintImage(guestModel: controller.guestModels.last);
+          });
+
+          
+        }
+      });
     }
   }
 }
