@@ -60,7 +60,8 @@ class _ListGuestState extends State<ListGuest> {
             ),
             body: appController.guestModels.isEmpty
                 ? const SizedBox()
-                : ListView.builder(reverse: true,
+                : ListView.builder(
+                    reverse: true,
                     itemCount: appController.guestModels.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
@@ -78,11 +79,12 @@ class _ListGuestState extends State<ListGuest> {
                               margin: const EdgeInsets.all(8.0),
                               child: WidgetImageNetwork(
                                 urlImage:
-                                    appController.guestModels[index].urlImage1,
+                                    appController.listUrlImages[index].last,
                                 width: 150,
                                 height: 150,
                               ),
                             ),
+                           
                             SizedBox(
                               width: 180,
                               child: Column(
