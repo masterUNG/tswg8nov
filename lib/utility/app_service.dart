@@ -146,6 +146,9 @@ class AppService {
     await dio.Dio().get(urlApi).then((value) {
       for (var element in json.decode(value.data)) {
         GuestModel model = GuestModel.fromMap(element);
+
+        print('##1nov guestModel ---> ${model.toMap()}');
+
         appController.guestModels.add(model);
 
         var urlImages = <String>[];
@@ -164,12 +167,14 @@ class AppService {
     });
   }
 
-  Future<void> processAddGuest(
-      {required String nameAndSurname,
-      required String phone,
-      required String carId,
-      required String province,
-      required String objective}) async {
+  Future<void> processAddGuest({
+    required String nameAndSurname,
+    required String phone,
+    required String carId,
+    required String province,
+    required String objective,
+    required String remark,
+  }) async {
     String urlApiUpload = 'https://tswg.site/app/saveFile.php';
 
     var files = <File?>[];
@@ -216,7 +221,7 @@ class AppService {
 
     if (urlImages.isNotEmpty) {
       String urlApiInsertGuest =
-          'https://tswg.site/app/insertGuest.php?isAdd=true&nameAndSur=$nameAndSurname&phone=$phone&carId=$carId&province=$province&objective=$objective&urlImage1=${urlImages[0]}&urlImage2=${urlImages[1]}&urlImage3=${urlImages[2]}&checkIn=${DateTime.now().toString()}';
+          'https://tswg.site/app/insertGuest.php?isAdd=true&nameAndSur=$nameAndSurname&phone=$phone&carId=$carId&province=$province&objective=$objective&urlImage1=${urlImages[0]}&urlImage2=${urlImages[1]}&urlImage3=${urlImages[2]}&checkIn=${DateTime.now().toString()}&remark=$remark';
       await dio.Dio().get(urlApiInsertGuest).then((value) {
         Get.back();
         AppSnackBar(

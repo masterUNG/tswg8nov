@@ -13,6 +13,7 @@ class GuestModel {
   final String urlImage3;
   final String checkIn;
   final String checkOut;
+  final String remark;
 
 
   GuestModel({
@@ -27,6 +28,7 @@ class GuestModel {
     required this.urlImage3,
     required this.checkIn,
     required this.checkOut,
+    required this.remark,
   });
 
 
@@ -43,6 +45,7 @@ class GuestModel {
       'urlImage3': urlImage3,
       'checkIn': checkIn,
       'checkOut': checkOut,
+      'remark': remark,
     };
   }
 
@@ -59,6 +62,7 @@ class GuestModel {
       urlImage3: (map['urlImage3'] ?? '') as String,
       checkIn: (map['checkIn'] ?? '') as String,
       checkOut: (map['checkOut'] ?? '') as String,
+      remark: (map['remark'] ?? '') as String,
     );
   }
 
