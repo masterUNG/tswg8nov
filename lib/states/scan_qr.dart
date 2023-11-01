@@ -47,7 +47,7 @@ class _ScanQrState extends State<ScanQr> {
             AppDialog(context: context).normalDialog(
                 title: 'Check Out Success',
                 iconWidget: const WidgetImage(
-                  pathImage: 'images/dfend.png',
+                  pathImage: 'images/logo_tswg.png',
                   width: 150,
                 ),
                 contentWidget: Column(
