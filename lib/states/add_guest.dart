@@ -59,7 +59,7 @@ class _AddGuestState extends State<AddGuest> {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const WidgetText(data: 'Add Guest'),
+          title: const WidgetText(data: 'เพิ่มรายการ'),
           centerTitle: true,
           actions: [
             WidgetIconButton(
@@ -104,18 +104,18 @@ class _AddGuestState extends State<AddGuest> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      WidgetForm(
-                        changeFunc: (p0) {
-                          phone = p0.trim();
-                        },
-                        labelWidget: const WidgetText(data: 'เบอร์โทรศัพย์'),
-                        textInputType: TextInputType.phone,
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     WidgetForm(
+                  //       changeFunc: (p0) {
+                  //         phone = p0.trim();
+                  //       },
+                  //       labelWidget: const WidgetText(data: 'เบอร์โทรศัพย์'),
+                  //       textInputType: TextInputType.phone,
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
