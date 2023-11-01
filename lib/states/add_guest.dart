@@ -39,6 +39,9 @@ class _AddGuestState extends State<AddGuest> {
     if (controller.carFiles.isNotEmpty) {
       controller.carFiles.clear();
     }
+    if (controller.totalFiles.isNotEmpty) {
+      controller.totalFiles.clear();
+    }
   }
 
   @override
@@ -194,7 +197,7 @@ class _AddGuestState extends State<AddGuest> {
                       width: 250,
                       margin: const EdgeInsets.only(top: 16, bottom: 32),
                       child: WidgetButton(
-                        label: 'Save',
+                        label: 'บันทึก และ พิมพ์',
                         pressFunc: () {
                           processSave();
                         },
@@ -274,8 +277,8 @@ class _AddGuestState extends State<AddGuest> {
   }
 
   void processSave() {
-    if (controller.cardFiles.isEmpty) {
-      AppSnackBar(title: 'Image Card ?', message: 'กรุณาถ่ายภาพ Card')
+    if (controller.totalFiles.isEmpty) {
+      AppSnackBar(title: 'ไม่มีภาพ ?', message: 'กรุณาถ่ายภาพ')
           .errorSnackBar();
     } else if ((carId?.isEmpty ?? true)) {
       AppSnackBar(title: 'ทะเบียนรถ ?', message: 'กรุณาทะเบียนรถ คะ')

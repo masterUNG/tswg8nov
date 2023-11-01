@@ -140,12 +140,26 @@ class AppService {
 
     if (appController.guestModels.isNotEmpty) {
       appController.guestModels.clear();
+      appController.listUrlImages.clear();
     }
 
     await dio.Dio().get(urlApi).then((value) {
       for (var element in json.decode(value.data)) {
         GuestModel model = GuestModel.fromMap(element);
         appController.guestModels.add(model);
+
+        var urlImages = <String>[];
+        if (model.urlImage1.isNotEmpty) {
+          urlImages.add(model.urlImage1);
+        }
+        if (model.urlImage2.isNotEmpty) {
+          urlImages.add(model.urlImage2);
+        }
+        if (model.urlImage3.isNotEmpty) {
+          urlImages.add(model.urlImage3);
+        }
+
+        appController.listUrlImages.add(urlImages);
       }
     });
   }
@@ -158,16 +172,24 @@ class AppService {
       required String objective}) async {
     String urlApiUpload = 'https://tswg.site/app/saveFile.php';
 
-    var files = <File>[];
+    var files = <File?>[];
     if (appController.avatarFiles.isNotEmpty) {
       files.add(appController.avatarFiles.last);
+    } else {
+      files.add(null);
     }
 
     if (appController.carFiles.isNotEmpty) {
       files.add(appController.carFiles.last);
+    } else {
+      files.add(null);
     }
 
-    files.add(appController.cardFiles.last);
+    if (appController.cardFiles.isNotEmpty) {
+      files.add(appController.cardFiles.last);
+    } else {
+      files.add(null);
+    }
 
     var urlImages = <String>[
       '',
@@ -177,17 +199,18 @@ class AppService {
     int index = 0;
 
     for (var element in files) {
-      String nameFile = 'image${Random().nextInt(1000000)}.jpg';
-      Map<String, dynamic> map = {};
-      map['file'] =
-          await dio.MultipartFile.fromFile(element.path, filename: nameFile);
-      dio.FormData formData = dio.FormData.fromMap(map);
-      await dio.Dio().post(urlApiUpload, data: formData).then((value) {
-        print('upload $nameFile success');
-        // urlImages.add(
-        //     'https://www.androidthai.in.th/fluttertraining/checeOffocerUng/image/$nameFile');
-        urlImages[index] = 'https://tswg.site/app/image/$nameFile';
-      });
+      if (element != null) {
+        String nameFile = 'image${Random().nextInt(1000000)}.jpg';
+        Map<String, dynamic> map = {};
+        map['file'] =
+            await dio.MultipartFile.fromFile(element.path, filename: nameFile);
+        dio.FormData formData = dio.FormData.fromMap(map);
+        await dio.Dio().post(urlApiUpload, data: formData).then((value) {
+          print('upload $nameFile success');
+          urlImages[index] = 'https://tswg.site/app/image/$nameFile';
+        });
+      }
+
       index++;
     }
 
@@ -207,12 +230,19 @@ class AppService {
     var result = await ImagePicker()
         .pickImage(source: ImageSource.camera, maxWidth: 800, maxHeight: 800);
     File file = File(result!.path);
+    appController.totalFiles.add(file);
     return file;
   }
 
   Future<void> readAllObjective() async {
     String urlApi = 'https://tswg.site/app/getAllObjectiveUng.php';
     await dio.Dio().get(urlApi).then((value) {
+      if (appController.objectiveModels.isNotEmpty) {
+        appController.objectiveModels.clear();
+        appController.chooseObjectives.clear();
+        appController.chooseObjectives.add(null);
+      }
+
       for (var element in json.decode(value.data)) {
         ObjectiveModel model = ObjectiveModel.fromMap(element);
         appController.objectiveModels.add(model);
@@ -223,6 +253,12 @@ class AppService {
   Future<void> readAllProvince() async {
     String urlApi = 'https://www.androidthai.in.th/flutter/getAllprovinces.php';
     await dio.Dio().get(urlApi).then((value) {
+      if (appController.provinceModels.isNotEmpty) {
+        appController.provinceModels.clear();
+        appController.chooseProvinces.clear();
+        appController.chooseProvinces.add(null);
+      }
+
       for (var element in json.decode(value.data)) {
         ProvinceModel model = ProvinceModel.fromMap(element);
         appController.provinceModels.add(model);
