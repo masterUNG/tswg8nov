@@ -213,8 +213,9 @@ class _AddGuestState extends State<AddGuest> {
 
   StatelessWidget imageCard(AppController appController) {
     return appController.cardFiles.isEmpty
-        ? Container(decoration: AppConstant().borderBox(),
-          child: WidgetImage(
+        ? Container(
+            decoration: AppConstant().borderBox(),
+            child: WidgetImage(
               pathImage: 'images/id_card.png',
               width: 80,
               height: 80,
@@ -224,7 +225,7 @@ class _AddGuestState extends State<AddGuest> {
                 });
               },
             ),
-        )
+          )
         : WidgetImageFile(
             file: appController.cardFiles.last,
             size: 80,
@@ -233,8 +234,9 @@ class _AddGuestState extends State<AddGuest> {
 
   StatelessWidget imageCar(AppController appController) {
     return appController.carFiles.isEmpty
-        ? Container(decoration: AppConstant().borderBox(),
-          child: WidgetImage(
+        ? Container(
+            decoration: AppConstant().borderBox(),
+            child: WidgetImage(
               pathImage: 'images/id_car.png',
               width: 80,
               height: 80,
@@ -244,7 +246,7 @@ class _AddGuestState extends State<AddGuest> {
                 });
               },
             ),
-        )
+          )
         : WidgetImageFile(
             file: appController.carFiles.last,
             size: 80,
@@ -253,8 +255,9 @@ class _AddGuestState extends State<AddGuest> {
 
   Widget imageAvatar(AppController appController) {
     return appController.avatarFiles.isEmpty
-        ? Container(decoration: AppConstant().borderBox(),
-          child: WidgetImage(
+        ? Container(
+            decoration: AppConstant().borderBox(),
+            child: WidgetImage(
               pathImage: 'images/avatar1.png',
               width: 80,
               height: 80,
@@ -264,7 +267,7 @@ class _AddGuestState extends State<AddGuest> {
                 });
               },
             ),
-        )
+          )
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -278,22 +281,17 @@ class _AddGuestState extends State<AddGuest> {
 
   void processSave() {
     if (controller.totalFiles.isEmpty) {
-      AppSnackBar(title: 'ไม่มีภาพ ?', message: 'กรุณาถ่ายภาพ')
-          .errorSnackBar();
-    } else if ((carId?.isEmpty ?? true)) {
-      AppSnackBar(title: 'ทะเบียนรถ ?', message: 'กรุณาทะเบียนรถ คะ')
-          .errorSnackBar();
-    } else if (controller.chooseProvinces.last == null) {
-      AppSnackBar(title: 'จังหวัด ?', message: 'กรุณาเลือก จังหวัดด้วย คะ')
-          .errorSnackBar();
+      AppSnackBar(title: 'ไม่มีภาพ ?', message: 'กรุณาถ่ายภาพ').errorSnackBar();
     } else {
       //process Insert
       AppService().processAddGuest(
           nameAndSurname: nameAndSurname ?? '',
           phone: phone ?? '',
-          carId: carId!,
-          province: controller.chooseProvinces.last!,
-          objective: controller.chooseObjectives.isEmpty
+          carId: carId ?? '',
+          province: controller.chooseProvinces.last == null
+              ? ''
+              : controller.chooseProvinces.last!,
+          objective: controller.chooseObjectives.last == null
               ? ''
               : controller.chooseObjectives.last!);
     }
