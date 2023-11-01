@@ -22,7 +22,7 @@ class AddGuest extends StatefulWidget {
 
 class _AddGuestState extends State<AddGuest> {
   AppController controller = Get.put(AppController());
-  String? nameAndSurname, carId, phone, otherObjective;
+  String? nameAndSurname, carId, phone, remark;
 
   @override
   void initState() {
@@ -167,29 +167,27 @@ class _AddGuestState extends State<AddGuest> {
                               onChanged: (value) {
                                 appController.chooseObjectives.add(value);
 
-                                if (value.toString() == 'อื่นๆ') {
-                                  appController.displayOther.value = true;
-                                } else {
-                                  appController.displayOther.value = false;
-                                }
+                                // if (value.toString() == 'อื่นๆ') {
+                                //   appController.displayOther.value = true;
+                                // } else {
+                                //   appController.displayOther.value = false;
+                                // }
                               },
                             ),
                           ),
                         ],
                       ),
-                appController.displayOther.value
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          WidgetForm(
-                            changeFunc: (p0) {
-                              otherObjective = p0.trim();
-                            },
-                            labelWidget: const WidgetText(data: 'อื่นๆ'),
-                          ),
-                        ],
-                      )
-                    : const SizedBox(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    WidgetForm(
+                      changeFunc: (p0) {
+                        remark = p0.trim();
+                      },
+                      labelWidget: const WidgetText(data: 'หมายเหตุ'),
+                    ),
+                  ],
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -285,15 +283,17 @@ class _AddGuestState extends State<AddGuest> {
     } else {
       //process Insert
       AppService().processAddGuest(
-          nameAndSurname: nameAndSurname ?? '',
-          phone: phone ?? '',
-          carId: carId ?? '',
-          province: controller.chooseProvinces.last == null
-              ? ''
-              : controller.chooseProvinces.last!,
-          objective: controller.chooseObjectives.last == null
-              ? ''
-              : controller.chooseObjectives.last!);
+        nameAndSurname: nameAndSurname ?? '',
+        phone: phone ?? '',
+        carId: carId ?? '',
+        province: controller.chooseProvinces.last == null
+            ? ''
+            : controller.chooseProvinces.last!,
+        objective: controller.chooseObjectives.last == null
+            ? ''
+            : controller.chooseObjectives.last!,
+        remark: remark ?? '',
+      );
     }
   }
 }
