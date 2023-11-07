@@ -87,7 +87,7 @@ class _DetailState extends State<Detail> {
                       Container(
                         margin: const EdgeInsets.only(top: 16, bottom: 64),
                         child:
-                            const WidgetText(data: 'Title : ข้อมูลปิดท้ายสลิป'),
+                            const WidgetText(data: ''),
                       ),
                     ],
                   ),

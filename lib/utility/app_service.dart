@@ -100,40 +100,48 @@ class AppService {
               textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
             ),
             WidgetText(
-              data: 'เวลาเข้า : ${guestModel.checkIn}',
-              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
-            ),
-            const Divider(),
-            const Divider(),
-            WidgetText(
               data: 'หมายเหตุ : ${guestModel.remark}',
               textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
             ),
+            // const Divider(),
+            WidgetText(
+              data: 'เวลาเข้า : ${guestModel.checkIn}',
+              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+            ),
+            // const Divider(),
             const Divider(),
 
             WidgetText(
-              data: 'การเก็บรวบรวม ใช้หรือ เปิดเผยข้อมูล',
-              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+              data: '-------------------------------',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
             ),
             WidgetText(
-              data: 'ส่วนบุคลของท่าน เพื่อใช้ในการ',
-              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+              data: 'การเก็บรวบรวมใช้หรือเปิดเผย',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
             ),
             WidgetText(
-              data: 'รักษาความปลอดภัยนิติบุคล',
-              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+              data: 'ข้อมูลส่วนบุคลของท่านเพื่อใช้ ',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
             ),
             WidgetText(
-              data: 'หมู่บ้านจัดสรร มาย์ด ฮอฟฟ์ สุวรรณภูมิ',
-              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+              data: 'ในการรักษาความปลอดภัย',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
             ),
             WidgetText(
-              data: 'และลูกบ้านของโครงการ หมู่บ้านเท่านั้น',
-              textStyle: AppConstant().h3Style(color: Colors.black, size: 8),
+              data: 'นิติบุคลหมู่บ้านจัดสรร',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
+            ),
+            WidgetText(
+              data: 'มาย์ด ฮอฟฟ์ สุวรรณภูมิ และ',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
+            ),
+            WidgetText(
+              data: 'ลูกบ้านของโครงการ หมู่บ้านเท่านั้น',
+              textStyle: AppConstant().h4Style(color: Colors.black, size: 8),
             ),
 
-            const Divider(),
-            const Divider(),
+            // const Divider(),
+            // const Divider(),
             const Divider(),
             const Divider(
               color: Colors.black,

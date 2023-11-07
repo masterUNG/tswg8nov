@@ -57,10 +57,10 @@ class _SettingState extends State<Setting> {
               ? WidgetButton(
                   label: 'Print',
                   pressFunc: () async {
-                    await BluetoothThermalPrinter.writeText("Master Ung\n"
-                        "EWTC Institute\n"
-                        "Flutter Training\n"
-                        "onLine Course \n\n\n");
+                    await BluetoothThermalPrinter.writeText("TSWG\n"
+                        "THWG System\n"
+                        "THWG Entance-Exit System\n"
+                        "THWG Solution \n\n\n");
                   },
                 )
               : const SizedBox(),

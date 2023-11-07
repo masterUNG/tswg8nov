@@ -81,7 +81,7 @@ class _DetailAfterScanState extends State<DetailAfterScan> {
                       WidgetText(data: 'เวลาออก : ${guestModel!.checkOut}'),
                       Container(
                         margin: const EdgeInsets.only(top: 16, bottom: 64),
-                        child: const WidgetText(data: 'Title : ข้อมูลปิดท้ายสลิป'),
+                        child: const WidgetText(data: ''),
                       ),
                     ],
                   ),

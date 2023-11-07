@@ -41,4 +41,9 @@ class AppConstant {
           fontSize: size ?? 14,
           color: color,
           fontWeight: fontWeight ?? FontWeight.normal);
+  TextStyle h4Style({double? size, Color? color, FontWeight? fontWeight}) =>
+      TextStyle(
+          fontSize: size ?? 8,
+          color: color,
+          fontWeight: fontWeight ?? FontWeight.normal);
 }
