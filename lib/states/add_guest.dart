@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, sort_child_properties_last
 
-import 'package:checkofficer/models/guest_model.dart';
 import 'package:checkofficer/utility/app_constant.dart';
 import 'package:checkofficer/utility/app_controller.dart';
 import 'package:checkofficer/utility/app_service.dart';
@@ -320,19 +319,6 @@ class _AddGuestState extends State<AddGuest> {
       )
           .then((value) {
         if (controller.connectedPrinter.value) {
-          // GuestModel guestModel = GuestModel(
-
-          //     nameAndSur: nameAndSurname ?? '',
-          //     phone: phone ?? '',
-          //     carId: carId ?? '',
-          //     province: controller.chooseProvinces.last == null ? '' : controller.chooseProvinces.last! ,
-          //     objective: controller.chooseObjectives.last == null ? '' : controller.chooseObjectives.last! ,
-          //     urlImage1: '',
-          //     urlImage2: '',
-          //     urlImage3: '',
-          //     checkIn: DateTime.now().toString(),
-          //     checkOut: '',
-          //     remark: remark!);
 
           AppService().readAllGuest().then((value) {
             AppService().processPrintImage(guestModel: controller.guestModels.last);

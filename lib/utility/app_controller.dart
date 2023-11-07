@@ -11,19 +11,15 @@ class AppController extends GetxController {
   RxList<ObjectiveModel> objectiveModels = <ObjectiveModel>[].obs;
   RxList<String?> chooseObjectives = <String?>[null].obs;
   RxBool displayOther = false.obs;
-
   RxList<File> avatarFiles = <File>[].obs;
   RxList<File> carFiles = <File>[].obs;
   RxList<File> cardFiles = <File>[].obs;
-
   RxList<File> totalFiles = <File>[].obs;
-
   RxList<GuestModel> guestModels = <GuestModel>[].obs;
-
   RxBool connectedPrinter = false.obs;
   RxList<dynamic> availableBluetoothDevices = <dynamic>[].obs;
-
   RxList<GuestModel> qrGuestModels = <GuestModel>[].obs;
-
   RxList<List<String>> listUrlImages = <List<String>>[].obs;
+
+  RxInt indexApi = 0.obs;
 }
