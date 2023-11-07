@@ -85,11 +85,6 @@ class _ListGuestState extends State<ListGuest> {
                         easyRefreshController!.finishLoad();
                         setState(() {});
                       });
-
-                      // AppService().readAllGuest().then((value) {
-                      //   timeLoad++;
-                      //   easyRefreshController!.finishLoad();
-                      // });
                     },
                     child: ListView.builder(
                       // reverse: true,
@@ -120,6 +115,22 @@ class _ListGuestState extends State<ListGuest> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    const WidgetText(data: 'Check In'),
+                                    WidgetText(
+                                      data: AppService().displayDateTime(
+                                          dateTimeString: appController
+                                              .guestModels[index].checkIn),
+                                      textStyle: AppConstant()
+                                          .h2Style(color: Colors.red, size: 16),
+                                    ),
+                                    const WidgetText(data: 'Check Out'),
+                                    WidgetText(
+                                      data: appController.guestModels[index].checkOut.isEmpty ? '-' : AppService().displayDateTime(
+                                          dateTimeString: appController
+                                              .guestModels[index].checkOut),
+                                      textStyle: AppConstant().h2Style(
+                                          color: Colors.green, size: 16),
+                                    ),
                                     WidgetText(
                                         data: appController
                                             .guestModels[index].nameAndSur),

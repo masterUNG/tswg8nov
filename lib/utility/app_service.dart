@@ -29,6 +29,14 @@ import 'package:screenshot/screenshot.dart';
 class AppService {
   AppController appController = Get.put(AppController());
 
+  String displayDateTime({required String dateTimeString}) {
+    var strings = dateTimeString.split(' ');
+    var dates = strings[0].split('-');
+    var times = strings[1].split(':');
+
+    return '${dates[2]}/${dates[1]}/${dates[0]} เวลา ${times[0]}:${times[1]}';
+  }
+
   void dialogCallConnectedPrinter({required BuildContext context}) {
     if (!appController.connectedPrinter.value) {
       AppDialog(context: context).normalDialog(
