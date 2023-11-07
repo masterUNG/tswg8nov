@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:checkofficer/models/user_model.dart';
 import 'package:checkofficer/states/list_guest.dart';
 import 'package:checkofficer/utility/app_constant.dart';
+import 'package:checkofficer/utility/app_controller.dart';
 import 'package:checkofficer/utility/app_snackbar.dart';
 import 'package:checkofficer/widgets/widget_button.dart';
 import 'package:checkofficer/widgets/widget_form.dart';
@@ -22,6 +23,8 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   String? user, password;
+
+  AppController appController = Get.put(AppController());
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +89,9 @@ class _AuthenState extends State<Authen> {
                               .errorSnackBar();
                         } else {
                           String urlApi =
-                              'https://www.androidthai.in.th/fluttertraining/checeOffocerUng/getUserWhereUser.php?isAdd=true&user=$user';
+                              'https://tswg.site/app/getUserWhereUser.php?isAdd=true&user=$user';
+
+                          print('urlApi ---> $urlApi');
                           await Dio().get(urlApi).then((value) {
                             print('value ---> $value');
 
@@ -102,6 +107,10 @@ class _AuthenState extends State<Authen> {
                                 print('model string ===> ${model.toString()}');
                                 if (password == model.password) {
                                   //Password true
+
+                                  appController.indexApi.value =
+                                      int.parse(model.api.trim());
+
                                   AppSnackBar(
                                           title: 'Welcome',
                                           message:

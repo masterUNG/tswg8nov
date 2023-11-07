@@ -45,9 +45,12 @@ class _ListGuestState extends State<ListGuest> {
     return GetX(
         init: AppController(),
         builder: (AppController appController) {
-          print(
-              '###  availableBluetooth ----> ${appController.availableBluetoothDevices.length}');
-          print('connectedPrinter ---> ${appController.connectedPrinter}');
+          // print(
+          //     '###  availableBluetooth ----> ${appController.availableBluetoothDevices.length}');
+          // print('connectedPrinter ---> ${appController.connectedPrinter}');
+
+          print('##7nov indexApi ---> ${appController.indexApi}');
+
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -88,7 +91,7 @@ class _ListGuestState extends State<ListGuest> {
                     },
                     child: ListView.builder(
                       // reverse: true,
-                      itemCount: AppConstant.amountLoad * timeLoad,
+                      itemCount: AppConstant.amountLoad * timeLoad >= appController.guestModels.length ?  appController.guestModels.length  : AppConstant.amountLoad * timeLoad ,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           print(
@@ -125,9 +128,12 @@ class _ListGuestState extends State<ListGuest> {
                                     ),
                                     const WidgetText(data: 'Check Out'),
                                     WidgetText(
-                                      data: appController.guestModels[index].checkOut.isEmpty ? '-' : AppService().displayDateTime(
-                                          dateTimeString: appController
-                                              .guestModels[index].checkOut),
+                                      data: appController.guestModels[index]
+                                              .checkOut.isEmpty
+                                          ? '-'
+                                          : AppService().displayDateTime(
+                                              dateTimeString: appController
+                                                  .guestModels[index].checkOut),
                                       textStyle: AppConstant().h2Style(
                                           color: Colors.green, size: 16),
                                     ),

@@ -207,7 +207,7 @@ class AppService {
   }
 
   Future<void> readAllGuest() async {
-    String urlApi = 'https://tswg.site/app/getAllGuest.php';
+    String urlApi = AppConstant.apiReadAllGurests[appController.indexApi.value];
 
     if (appController.guestModels.isNotEmpty) {
       appController.guestModels.clear();
@@ -292,7 +292,8 @@ class AppService {
 
     if (urlImages.isNotEmpty) {
       String urlApiInsertGuest =
-          'https://tswg.site/app/insertGuest.php?isAdd=true&nameAndSur=$nameAndSurname&phone=$phone&carId=$carId&province=$province&objective=$objective&urlImage1=${urlImages[0]}&urlImage2=${urlImages[1]}&urlImage3=${urlImages[2]}&checkIn=${DateTime.now().toString()}&remark=$remark';
+          '${AppConstant.apiInsertGuests[appController.indexApi.value]}$nameAndSurname&phone=$phone&carId=$carId&province=$province&objective=$objective&urlImage1=${urlImages[0]}&urlImage2=${urlImages[1]}&urlImage3=${urlImages[2]}&checkIn=${DateTime.now().toString()}&remark=$remark';
+      print('##7nov urlApiInsert --> $urlApiInsertGuest');
       await dio.Dio().get(urlApiInsertGuest).then((value) {
         Get.back();
         AppSnackBar(
@@ -344,11 +345,11 @@ class AppService {
 
   Future<void> processFindGuestModel({required String dataScan}) async {
     String urlApiEdit =
-        'https://tswg.site/app/editCheckOutWhereId.php?isAdd=true&id=$dataScan&checkOut=${DateTime.now().toString()}';
+        '${AppConstant.apiEditCheckOuts[appController.indexApi.value]}$dataScan&checkOut=${DateTime.now().toString()}';
 
     await Dio().get(urlApiEdit).then((value) async {
       String url =
-          'https://tswg.site/app/getGuestWhereId.php?isAdd=true&id=$dataScan';
+          '${AppConstant.apiGetGuests[appController.indexApi.value]}$dataScan';
 
       await Dio().get(url).then((value) {
         if (value.toString() != 'null') {

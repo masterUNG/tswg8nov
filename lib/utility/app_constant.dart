@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 
 class AppConstant {
+  static var apiReadAllGurests = <String>[
+    'https://tswg.site/app/getAllGuest.php',
+    'https://tswg.site/app/getAllGuestHome2.php',
+  ];
+
+  static var apiInsertGuests = <String>[
+    'https://tswg.site/app/insertGuest.php?isAdd=true&nameAndSur=',
+    'https://tswg.site/app/insertGuestHome2.php?isAdd=true&nameAndSur=',
+  ];
+
+  static var apiEditCheckOuts = <String>[
+    'https://tswg.site/app/editCheckOutWhereId.php?isAdd=true&id=',
+    'https://tswg.site/app/editCheckOutWhereIdHome2.php?isAdd=true&id=',
+  ];
+
+  static var apiGetGuests = <String>[
+    'https://tswg.site/app/getGuestWhereId.php?isAdd=true&id=',
+    'https://tswg.site/app/getGuestWhereIdHome2.php?isAdd=true&id=',
+  ];
 
   //เปลี่ยน amountLoad คือจำนวนในการ load แต่ละครั้ง
   static int amountLoad = 5;
