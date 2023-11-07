@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppConstant {
+
+  //เปลี่ยน amountLoad คือจำนวนในการ load แต่ละครั้ง
+  static int amountLoad = 5;
+
   static Color bgColor = const Color.fromARGB(255, 96, 22, 215);
 
   BoxDecoration borderBox() => BoxDecoration(
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(4)
-      );
+      border: Border.all(), borderRadius: BorderRadius.circular(4));
 
   BoxDecoration colorBox() => BoxDecoration(color: bgColor);
 
