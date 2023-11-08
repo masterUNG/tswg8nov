@@ -319,12 +319,12 @@ class _AddGuestState extends State<AddGuest> {
       )
           .then((value) {
         if (controller.connectedPrinter.value) {
-
-          AppService().readAllGuest().then((value) {
-            AppService().processPrintImage(guestModel: controller.guestModels.last);
+          AppService().readAllGuest().then((value) async {
+            AppService().readAllGuest().then((value) {
+              AppService()
+                  .processPrintImage(guestModel: controller.guestModels.last);
+            });
           });
-
-          
         }
       });
     }
